@@ -6,12 +6,10 @@ import br.com.sicredieventlist.model.Event;
 import br.com.sicredieventlist.util.DateManager;
 import br.com.sicredieventlist.util.ImageManager;
 import br.com.sicredieventlist.util.NumberManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,6 +48,10 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+
     }
 
     @Override
@@ -59,5 +61,20 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap.addMarker(new MarkerOptions().position(latLng));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10f));
 
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                openMap(event.getLatitude(),event.getLongitude());
+            }
+        });
+    }
+
+    private void openMap(Double lat, Double lng) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lat", lat);
+        bundle.putDouble("lng", lng);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

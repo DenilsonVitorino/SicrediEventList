@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">S.O.S Eventos</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

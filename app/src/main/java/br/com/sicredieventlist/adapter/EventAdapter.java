@@ -55,15 +55,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewEventListTitle;
         ImageView imageViewEventListImage;
-        Button buttonEventListDetails;
+        TextView textViewEventListTitle,
+                textViewEventListDetails;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewEventListTitle = (TextView) itemView.findViewById(R.id.textViewEventListTitle);
             imageViewEventListImage = (ImageView) itemView.findViewById(R.id.imageViewEventListImage);
-            //buttonEventListDetails = (Button) itemView.findViewById(R.id.buttonEventListDetails);
+            textViewEventListTitle = (TextView) itemView.findViewById(R.id.textViewEventListTitle);
+            textViewEventListDetails = (TextView) itemView.findViewById(R.id.textViewEventListDetails);
         }
     }
 }

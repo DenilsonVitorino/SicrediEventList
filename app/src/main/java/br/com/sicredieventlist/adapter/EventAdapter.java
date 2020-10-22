@@ -1,27 +1,22 @@
 package br.com.sicredieventlist.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.Serializable;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.sicredieventlist.R;
 import br.com.sicredieventlist.model.Event;
 import br.com.sicredieventlist.util.ImageManager;
+import br.com.sicredieventlist.view.DetailActivity;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
@@ -46,6 +41,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull final EventAdapter.MyViewHolder myViewHolder, final int i) {
         myViewHolder.textViewEventListTitle.setText(list.get(i).getTitle());
         ImageManager.load(myViewHolder.imageViewEventListImage,list.get(i).getImage());
+
+        myViewHolder.textViewEventListDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("event", (Serializable) list.get(i));
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

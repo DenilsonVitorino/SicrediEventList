@@ -12,8 +12,16 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
     private Event event;
     private ImageView imageViewDetailImage;
     private TextView textViewDetailTitle,
@@ -39,5 +47,17 @@ public class DetailActivity extends AppCompatActivity {
         textViewDetailDescription.setText(event.getDescription());
         textViewDetailDate.setText("Data: " + DateManager.formatDateTimePtBr(event.getDate()));
         textViewDetailPrice.setText("Preço: " + NumberManager.formatCurrenty(event.getPrice()));
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        LatLng latLng = new LatLng(event.getLatitude(), event.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(latLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10f));
+
     }
 }

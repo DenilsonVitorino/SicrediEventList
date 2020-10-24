@@ -3,7 +3,7 @@ package br.com.sicredieventlist.model;
 public class People {
 
     private Long id;
-    private Long idEnvet;
+    private Long idEvent;
     private String name;
     private String picture;
 
@@ -15,12 +15,12 @@ public class People {
         this.id = id;
     }
 
-    public Long getIdEnvet() {
-        return idEnvet;
+    public Long getidEvent() {
+        return idEvent;
     }
 
-    public void setIdEnvet(Long idEnvet) {
-        this.idEnvet = idEnvet;
+    public void setidEvent(Long idEvent) {
+        this.idEvent = idEvent;
     }
 
     public String getName() {

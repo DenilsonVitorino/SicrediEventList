@@ -17,6 +17,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Date;
+
 public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -40,10 +42,10 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         event = (Event) bundle.getSerializable("event");
-        ImageManager.load(imageViewDetailImage,event.getImage());
+        ImageManager.load(DetailActivity.this,imageViewDetailImage,event.getImage());
         textViewDetailTitle.setText(event.getTitle());
         textViewDetailDescription.setText(event.getDescription());
-        textViewDetailDate.setText("Data: " + DateManager.formatDateTimePtBr(event.getDate()));
+        textViewDetailDate.setText("Data: " + DateManager.formatDateTimePtBr(new Date(event.getDate())));
         textViewDetailPrice.setText("Preço: " + NumberManager.formatCurrenty(event.getPrice()));
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

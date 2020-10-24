@@ -1,6 +1,8 @@
 package br.com.sicredieventlist.model;
 
-public class People {
+import java.io.Serializable;
+
+public class People implements Serializable {
 
     private Long id;
     private Long idEvent;

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.DetailActivity">
-
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="15dp">
 
@@ -30,66 +28,61 @@
             android:textSize="16dp"
             android:textStyle="bold" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textViewDetailDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Description"
+            android:textColor="#000"
+            android:textSize="16dp" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        <TextView
+            android:id="@+id/textViewDetailDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textColor="#3F51B5"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textViewDetailPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Price"
+            android:textColor="#3F51B5"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewDetailLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Local do Evento"
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#F5F5F5"
-            android:padding="15dp">
+            android:layout_height="100dp" />
 
-            <TextView
-                android:id="@+id/textViewDetailDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="Description"
-                android:textColor="#000"
-                android:textSize="16dp"
-                />
+        <TextView
+            android:id="@+id/textViewDetailConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Confirmados"
+            android:textColor="#000"
+            android:textSize="16dp" />
 
-            <TextView
-                android:id="@+id/textViewDetailDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date"
-                android:textColor="#3F51B5"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDetailConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
 
-            <TextView
-                android:id="@+id/textViewDetailPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="Price"
-                android:textColor="#3F51B5"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/textViewDetailLocal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Local do Evento"
-                android:textColor="#000"
-                android:textSize="16dp"/>
-
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

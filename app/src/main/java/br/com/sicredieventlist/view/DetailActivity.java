@@ -1,13 +1,20 @@
 package br.com.sicredieventlist.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import br.com.sicredieventlist.R;
+import br.com.sicredieventlist.adapter.PeopleAdapter;
 import br.com.sicredieventlist.model.Event;
+import br.com.sicredieventlist.model.People;
 import br.com.sicredieventlist.util.DateManager;
 import br.com.sicredieventlist.util.ImageManager;
 import br.com.sicredieventlist.util.NumberManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,8 +23,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.Date;
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -27,7 +34,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     private TextView textViewDetailTitle,
                      textViewDetailDescription,
                      textViewDetailDate,
-                     textViewDetailPrice;
+                     textViewDetailPrice,
+                     textViewDetailConfirm;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +48,48 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         textViewDetailDescription = (TextView) findViewById(R.id.textViewDetailDescription);
         textViewDetailDate = (TextView) findViewById(R.id.textViewDetailDate);
         textViewDetailPrice = (TextView) findViewById(R.id.textViewDetailPrice);
+        textViewDetailConfirm = (TextView) findViewById(R.id.textViewDetailConfirm);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDetailConfirm);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         event = (Event) bundle.getSerializable("event");
-        ImageManager.load(DetailActivity.this,imageViewDetailImage,event.getImage());
+        ImageManager.loadEventImage(DetailActivity.this,imageViewDetailImage,event.getImage());
         textViewDetailTitle.setText(event.getTitle());
         textViewDetailDescription.setText(event.getDescription());
         textViewDetailDate.setText("Data: " + DateManager.formatDateTimePtBr(new Date(event.getDate())));
         textViewDetailPrice.setText("Preço: " + NumberManager.formatCurrenty(event.getPrice()));
+        if (event.getPeople().size() > 0) {
+            textViewDetailConfirm.setText("Confirmados.");
+            recyclerView.setVisibility(View.VISIBLE);
+            listPeople(event.getPeople());
+        } else {
+            textViewDetailConfirm.setText("Ainda não há confirmados.");
+            recyclerView.setVisibility(View.GONE);
+        }
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_check:
+                return true;
 
-
+            case R.id.action_share:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -78,5 +114,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         bundle.putDouble("lng", lng);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void listPeople(List<People> list) {
+        PeopleAdapter peopleAdapter = new PeopleAdapter(this, list);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setAdapter(peopleAdapter);
     }
 }

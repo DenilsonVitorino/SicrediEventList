@@ -1,7 +1,9 @@
 package br.com.sicredieventlist.util;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.icu.lang.UProperty;
 import android.widget.ImageView;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +12,7 @@ import java.net.URL;
 import br.com.sicredieventlist.R;
 
 public class ImageManager {
+
     private static void loadImage(final Context context, final ImageView imageView, final String url, final int idDrawable) {
         new Thread(new Runnable() {
             public void run(){

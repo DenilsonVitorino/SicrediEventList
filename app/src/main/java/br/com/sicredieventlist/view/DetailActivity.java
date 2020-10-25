@@ -1,7 +1,6 @@
 package br.com.sicredieventlist.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.sicredieventlist.R;
@@ -12,11 +11,7 @@ import br.com.sicredieventlist.util.DateManager;
 import br.com.sicredieventlist.util.ImageManager;
 import br.com.sicredieventlist.util.NumberManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,10 +23,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +37,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                      textViewDetailPrice,
                      textViewDetailConfirm;
     private RecyclerView recyclerView;
-    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +51,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         textViewDetailConfirm = (TextView) findViewById(R.id.textViewDetailConfirm);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewDetailConfirm);
         Intent intent = getIntent();
-        uri = intent.getParcelableExtra("uri");
         Bundle bundle = intent.getExtras();
         event = (Event) bundle.getSerializable("event");
         ImageManager.loadEventImage(DetailActivity.this,imageViewDetailImage,event.getImage());

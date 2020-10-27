@@ -1,12 +1,16 @@
 package br.com.sicredieventlist.service;
 
 import java.util.List;
+
+import br.com.sicredieventlist.model.Checkin;
 import br.com.sicredieventlist.model.Event;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 
 public interface EventService {
 
@@ -15,8 +19,10 @@ public interface EventService {
                 .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @Headers({"Accept: application/json"})
     @GET("events")
     Call<List<Event>> listAll();
+
+    @POST("checkin")
+    Call<Checkin> save(@Body Checkin checkin);
 
 }

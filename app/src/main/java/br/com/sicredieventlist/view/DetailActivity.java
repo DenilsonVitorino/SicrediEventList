@@ -42,6 +42,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        setTitle("Detalhes do Evento");
         event = new Event();
         imageViewDetailImage = (ImageView) findViewById(R.id.imageViewDetailImage);
         textViewDetailTitle = (TextView) findViewById(R.id.textViewDetailTitle);
@@ -82,9 +83,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_check:
+            case R.id.action_check: openCheckin();
                 return true;
-
             case R.id.action_share: shareEvent(mountTextToShare());
                 return true;
             default:
@@ -137,5 +137,13 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
            + "\n\n" + textViewDetailDate.getText().toString()
            + "\n" + textViewDetailPrice.getText().toString();
         return text;
+    }
+
+    private void openCheckin() {
+        Intent intent = new Intent(this, CheckinActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("eventId", event.getId());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

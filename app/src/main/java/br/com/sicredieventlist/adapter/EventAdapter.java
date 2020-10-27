@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.List;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.sicredieventlist.R;
 import br.com.sicredieventlist.model.Event;
@@ -40,8 +41,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final EventAdapter.MyViewHolder myViewHolder, final int i) {
         myViewHolder.textViewEventListTitle.setText(list.get(i).getTitle());
-        ImageManager.load(context,myViewHolder.imageViewEventListImage,list.get(i).getImage());
-        myViewHolder.textViewEventListDetails.setOnClickListener(new View.OnClickListener() {
+        ImageManager.loadEventImage(context,myViewHolder.imageViewEventListImage,list.get(i).getImage());
+        myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
@@ -60,15 +61,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        CardView cardView;
         ImageView imageViewEventListImage;
-        TextView textViewEventListTitle,
-                textViewEventListDetails;
+        TextView textViewEventListTitle;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.event_cardview);
             imageViewEventListImage = (ImageView) itemView.findViewById(R.id.imageViewEventListImage);
             textViewEventListTitle = (TextView) itemView.findViewById(R.id.textViewEventListTitle);
-            textViewEventListDetails = (TextView) itemView.findViewById(R.id.textViewEventListDetails);
         }
     }
 }
